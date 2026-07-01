@@ -4,6 +4,12 @@
   "description": "This repo is used to demonstrate various testing scenarios with [Playwright](https://playwright.dev/) 🎭 with node.js",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@playwright/test": "^1.45.0"
-  }
+    "@playwright/test": "^1.45.0",
+    "@types/node": "^26.1.0"
+  },
+  "scripts": {
+    "test": "npx playwright test --config playwright.config.ts"
+  },"overrides": {
+  "@playwright/test": "$@playwright/test"
+}
 }
