@@ -11,7 +11,7 @@ test.describe( 'login', () => {
         await expect(page.locator('#flash')).toContainText('You logged into a secure area!');
 
     })
-    test( 'Invalid login', async ({page}) =>{
+    test( 'Invalid credential shows error ', async ({page}) =>{
         await page.goto('https://practice.expandtesting.com/login');
         await expect(page).toHaveTitle('Test Login Page for Automation Testing Practice');
         await page.locator("#username").fill('wrongUser')
