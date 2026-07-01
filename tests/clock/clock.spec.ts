@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-
 test("set fixed time", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2024-02-02T10:00:00"));
   await page.goto("https://demo.playwright.dev/clock");
