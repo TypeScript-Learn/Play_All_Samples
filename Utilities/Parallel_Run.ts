@@ -33,12 +33,18 @@ import {chromium} from 'playwright'
  async function login( login_cred: string, login_pwd: string, auth_file: string): Promise<void> {
 
     const browser = await chromium.launch({headless: false})
-     const page = await browser.newPage();
-    await page.goto('https://practice.expandtesting.com/login');
-    await page.locator("#username").fill(login_cred);
-     await page.locator('#password').fill(login_pwd);
-     await page.getByRole('button', { name: 'Login' }).click();
-     await page.context().storageState({path: auth_file});
+    try{
+        const page = await browser.newPage();
+        await page.goto('https://practice.expandtesting.com/login');
+        await page.locator("#username").fill(login_cred);
+        await page.locator('#password').fill(login_pwd);
+        await page.getByRole('button', { name: 'Login' }).click();
+        await page.context().storageState({path: auth_file});
+    }
+    finally{
+        await browser.close();
+    }
+
 
 }
 
@@ -47,7 +53,7 @@ async function parallel_run(): Promise<void> {
    const array_logins = [
        {username: 'test', password: 'edit', auth_file_name: 'test_auth'},
        {username: 'select', password: 'read',auth_file_name: 'read_auth'},
-       {username: 'na', password: 'na'},   {username: 'admin', password: 'admin', auth_file_name: 'admin_auth'},
+       {username: 'na', password: 'na',auth_file_name: 'na_auth'},   {username: 'admin', password: 'admin', auth_file_name: 'admin_auth'},
 
    ]
     // for(let i= 0;i<4;i++){
