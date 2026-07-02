@@ -30,7 +30,7 @@ import {chromium} from 'playwright'
 //
 // }
 // parallel_run();
- async function login( login_cred: string, login_pwd: string): Promise<void> {
+ async function login( login_cred: string, login_pwd: string, auth_file: string): Promise<void> {
 
     const browser = await chromium.launch({headless: false})
      const page = await browser.newPage();
@@ -38,24 +38,29 @@ import {chromium} from 'playwright'
     await page.locator("#username").fill(login_cred);
      await page.locator('#password').fill(login_pwd);
      await page.getByRole('button', { name: 'Login' }).click();
+     await page.context().storageState({path: auth_file});
 
 }
 
 async function parallel_run(): Promise<void> {
-    const variable_to_send_parallel = []
+    const promises = []
    const array_logins = [
-       {username: 'test', password: 'edit'},
-       // {username: 'select', password: 'read'},
-       // {username: 'na', password: 'na'},   {username: 'admin', password: 'admin'},
+       {username: 'test', password: 'edit', auth_file_name: 'test_auth'},
+       {username: 'select', password: 'read',auth_file_name: 'read_auth'},
+       {username: 'na', password: 'na'},   {username: 'admin', password: 'admin', auth_file_name: 'admin_auth'},
 
    ]
-    for(let i= 0;i<4;i++){
-        const this_instance = array_logins[i];
-        console.log(`${this_instance.username}: ${this_instance.password}`);
-        variable_to_send_parallel.push(this_instance.username);
-        variable_to_send_parallel.push(this_instance.password);
+    // for(let i= 0;i<4;i++){
+    //     const this_instance = array_logins[i];
+    //    console.log(`${this_instance.username} - ${this_instance.password}`);
+    //
+    // }
+    for( const i of array_logins){
+      promises.push(login(i.username, i.password,i.auth_file_name));
+
     }
+    await Promise.all(promises);
+    console.log('all logins done');
 
-    await login()
-
-}
+ }
+ parallel_run();
