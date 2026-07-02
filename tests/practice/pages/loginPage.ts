@@ -8,14 +8,14 @@ export class LoginPage {
       await this.page.goto('https://practice.expandtesting.com/login');
   }
   async login(username: string, password: string) {
-      await this.page.locator("#username").fill('practice')
-      await this.page.locator('#password').fill('SuperSecretPassword!');
+      await this.page.locator("#username").fill(username)
+      await this.page.locator('#password').fill(password);
       await this.page.getByRole('button', { name: 'Login' }).click();
   }
   // async getFlash(expectText: string) {
   //     await expect(this.page.locator('#flash')).toContainText(expectText);
   // }
-  async getFlash(): Promise<Locator>{
+  getFlash(): Locator{
       return  this.page.locator('#flash')
   }
 }
