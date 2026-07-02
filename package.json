@@ -8,7 +8,8 @@
     "@types/node": "^26.1.0"
   },
   "scripts": {
-    "test": "npx playwright test --config playwright.config.ts"
+    "test": "npx playwright test --config playwright.config.ts",
+    "test_tag": "npx playwright test --config playwright.config.ts --grep Authentication"
   },"overrides": {
   "@playwright/test": "$@playwright/test"
 }
