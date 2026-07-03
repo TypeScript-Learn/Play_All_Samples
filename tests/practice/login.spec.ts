@@ -14,6 +14,9 @@ test.describe( 'login', () => {
         // to attach the screen shot without saving
         const sBuffer = await page.screenshot({'path': '/screenshot/login.png'});
         await test.info().attach("new screenshot", {path:'/screenshot/login.png'});
+        await page.goBack();
+        await page.goForward();
+        await page.reload();
 
     })
     test( 'Invalid credential shows error ', async ({page}) =>{

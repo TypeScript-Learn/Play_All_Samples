@@ -98,6 +98,9 @@ dist
 # Sveltekit cache directory
 .svelte-kit/
 
+**/.idea
+**/.idea/
+
 # vitepress build output
 **/.vitepress/dist
 
