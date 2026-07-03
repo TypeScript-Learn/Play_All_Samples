@@ -9,6 +9,11 @@ test.describe( 'login', () => {
         await page.locator('#password').fill('SuperSecretPassword!');
         await page.getByRole('button', { name: 'Login' }).click();
         await expect(page.locator('#flash')).toContainText('You logged into a secure area!');
+        await page.screenshot({'path': '/login', fullPage: true});
+        await test.info().attach("new screenshot", {path:'/screenshot/login.png'});
+        // to attach the screen shot without saving
+        const sBuffer = await page.screenshot({'path': '/screenshot/login.png'});
+        await test.info().attach("new screenshot", {path:'/screenshot/login.png'});
 
     })
     test( 'Invalid credential shows error ', async ({page}) =>{

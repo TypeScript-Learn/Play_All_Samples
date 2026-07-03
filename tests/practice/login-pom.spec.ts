@@ -13,8 +13,10 @@ test.describe('Login Page with POM ', () => {
     test('Invalid', async ({page}) => {
         const loginPage = new LoginPage(page);
         await loginPage.goto();
+        await loginPage.page.screenshot({'path': '/login'});
         await loginPage.login('test', 'SuperSecretPassword!');
         await expect(loginPage.getFlash()).toContainText('Your password is invalid!');
 
     })
+
 })
